@@ -41,7 +41,7 @@ export async function createUploadUrl(){
     return {status: "waiting"};
  };
 
- export async function listasset(){
+ export async function listVideos(){
     try{
             const assets = await mux.video.assets.list({limit: 25});
         return assets.data;
@@ -57,7 +57,7 @@ export async function createUploadUrl(){
  };
 
 
- export async function getAssetList(playbackId: string){
+ export async function getAssetStatus(playbackId: string){
   try{
     const assets = await mux.video.assets.list({limit: 25});
     const asset = assets.data.find(a => a.playback_ids?.some(p => p.id === playbackId));
@@ -101,4 +101,36 @@ export async function createUploadUrl(){
     return{status:"errored", transcriptStatus: "errored", transcript : []};
  }
 
+}
+
+export async function generateVideoSummary(playbackId: string) {
+  try {
+    // First, find the asset ID from the playback ID
+    const assets = await mux.video.assets.list({ limit: 100 });
+    const asset = assets.data.find(a => 
+      a.playback_ids?.some(p => p.id === playbackId)
+    );
+
+    if (!asset) {
+      throw new Error('Asset not found');
+    }
+
+    // Import dynamically to avoid issues with module resolution
+    const { getSummaryAndTags } = await import('@mux/ai/workflows');
+
+    // Generate summary using Mux AI
+    // This uses the auto-generated transcript under the hood
+    const result = await getSummaryAndTags(asset.id, {
+      tone: 'professional', // Options: 'professional', 'playful', 'neutral'
+    });
+
+    return {
+      title: result.title,
+      summary: result.description,
+      tags: result.tags,
+    };
+  } catch (error) {
+    console.error('Error generating summary:', error);
+    return null;
+  }
 }

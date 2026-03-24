@@ -1,4 +1,4 @@
-import ScreenRecorder from '@/components/screenRecorder';
+import ScreenRecorder from '@/components/ScreenRecorder';
 import Link from 'next/link';
 import { LayoutGrid, Video } from 'lucide-react';
 

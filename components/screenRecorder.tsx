@@ -95,7 +95,7 @@ const stopRecording = () =>{
 }
 
  const handleUpload = async() =>{
-    if(mediaBlob) return ;
+    if(!mediaBlob) return ;
 
     setIsUploading(true);
 
