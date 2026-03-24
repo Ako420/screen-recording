@@ -34,7 +34,7 @@ export async function createUploadUrl(){
     if(upload.asset_id){
         const asset = await mux.video.assets.retrieve(upload.asset_id);
         return {
-            Playback_URL: asset.playback_ids?.[0]?.id,
+            PlaybackId: asset.playback_ids?.[0]?.id,
             status: asset.status,
         };
     }
