@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ Screen Recording with Mux + Next.js
 
-## Getting Started
+A lightweight Next.js app for uploading, processing and summarizing videos with Mux (video + AI features), built while learning from the freeCodeCamp YouTube tutorial.
 
-First, run the development server:
+ 🚀 Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project:
+- Uses `@mux/mux-node` for creating upload URLs and managing assets
+- Uses `@mux/ai/workflows` to generate intelligent video summaries/tags
+- Includes frontend routes for upload + video status + playback
+- Demonstrates Mux workflow, captions extraction, and server actions in Next.js 16+
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ 📁 Repo structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- app Next.js routes (page.tsx, dashboard, video/[id])
+- action.ts server actions for Mux uploads and asset status
+- components UI components: `MuxPlayerWrapper`, `ScreenRecorder`, etc.
+- public static assets
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ 🛠️ Setup
 
-## Learn More
+1. Install:
+   - `npm install` (or `pnpm`, `yarn`)
+2. Add env vars:
+   - `MUX_ACCESS_TOKEN`
+   - `MUX_SECRET_KEY`
+3. Run:
+   - `npm run dev`
+4. Open: [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+ ✨ Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Generate Mux upload URL with `createUploadUrl()`
+- Check upload -> asset conversion status
+- Poll and show subtitle transcript text
+- Generate summary + tags from `@mux/ai/workflows`
+- List latest videos with playback link
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ 🧩 How this works
 
-## Deploy on Vercel
+- `createUploadUrl` creates asset + upload target
+- `getAssetidFromUploadId` maps upload -> asset -> playback ID
+- `getAssetStatus` polls status + text captions from `.vtt`
+- `generateVideoSummary` uses Mux AI to create summary/tags
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ 🧪 Run locally
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev`
+- `npm run build`
+- `npm start`
+
+ 📝 Acknowledgements
+
+Thanks to the freeCodeCamp YouTube channel for the learning path and inspiration.  
+This project was built from their tutorial examples Next.js + Mux app.
+
+
+
