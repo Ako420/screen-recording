@@ -9,6 +9,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  headers: async () => {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Permissions-Policy",
+            value: "microphone=(self), display-capture=(self), camera=(self)",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
